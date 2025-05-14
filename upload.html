@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload a File</title>
+    <script>
+      window.onload = () => {
+        document.querySelector('input[type="file"]').addEventListener('change', (e) => {
+          document.querySelector('form').submit();
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="file">
+    </form>
+  </body>
+</html>
