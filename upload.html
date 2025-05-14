@@ -4,15 +4,26 @@
     <title>Upload a File</title>
     <script>
       window.onload = () => {
-        document.querySelector('input[type="file"]').addEventListener('change', (e) => {
-          document.querySelector('form').submit();
-        });
+        document
+          .querySelector('input[type="file"]')
+          .addEventListener("change", (e) => {
+            document.getElementById("file-form").submit();
+          });
       };
     </script>
   </head>
   <body>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file">
+    <form id="text-form" action="/upload-text" method="post">
+      <textarea name="text" rows="10" cols="50"></textarea>
+      <input type="submit" value="Submit" />
+    </form>
+    <form
+      id="file-form"
+      action="/upload"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" />
     </form>
   </body>
 </html>
