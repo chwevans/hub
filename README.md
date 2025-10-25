@@ -11,6 +11,12 @@ A simple HTTP server utility for quickly sharing files and text between devices 
 This builds the binary and moves it to `~/bin/hub`.
 Add `~/bin` to your `PATH` if you want to use it from anywhere.
 
+Alternatively, you can just run the program from scratch:
+
+```bash
+go run hub.go
+```
+
 ## Usage
 
 Hub runs an HTTP server on port 8003 and displays your local IP address.
