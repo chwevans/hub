@@ -93,6 +93,7 @@ func getAllInput() (string, error) {
 
 func buildServeString(response string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL.Path)
 		w.Write([]byte(response))
 	}
 }
@@ -107,6 +108,7 @@ func shouldServeAsDownload(extension string) bool {
 
 func buildServeFile(fileName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL.Path)
 		f, err := os.Open(fileName)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -135,6 +137,7 @@ func buildServeDirectory(directory string) http.HandlerFunc {
 	baseName := filepath.Base(directory)
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL.Path)
 		w.Header().Set("Content-Disposition", "attachment; filename=\""+baseName+".zip\"")
 		w.Header().Set("Content-Type", "application/octet-stream")
 		io.Copy(w, buf)
@@ -143,6 +146,7 @@ func buildServeDirectory(directory string) http.HandlerFunc {
 
 func buildUploadTextHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL.Path)
 		// Handle text upload
 		if err := r.ParseForm(); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -156,6 +160,7 @@ func buildUploadTextHandler() http.HandlerFunc {
 
 func buildUploadFile() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL.Path)
 		// Return html that will trigger a file upload
 		w.Write([]byte(uploadHTML))
 	}
@@ -168,6 +173,7 @@ func buildUploadFileHandler(destinationDirectory string) http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL.Path)
 		// Handle file upload
 		if err := receiveFile(r, destinationDirectory); err != nil {
 			fmt.Println("Error uploading file:", err)
